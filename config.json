@@ -12,5 +12,9 @@
          "amqpurl" : "amqp://mtynjhlt:__4qRgNg9Ormtvgfjh04Yzok9qI_r7rW@tiger.cloudamqp.com/mtynjhlt",
          "queue" : "EmailNotificationRabbitMQQueue",
          "exchange" : "EmailNotificationRabbitMQExchange"
+    },
+    "cron" : {
+         "schedule" : "1 5 * * * *",
+        "timeZone" : "America/New_York"
     }
 }
