@@ -1,0 +1,16 @@
+{
+    "webserver" : {
+        "port" : "3000",
+        "ip" : "127.0.0.1"
+    },
+    "mailgun" : {
+         "api_key" : "key-6d9ato2pcav6w376dp5ad0ozpbxu0sx9",
+         "domain" : "sandbox45333.mailgun.org",
+         "default_from" : "vmokshalab@gmail.com"
+    },
+    "rabbitmq" : {
+         "amqpurl" : "amqp://mtynjhlt:__4qRgNg9Ormtvgfjh04Yzok9qI_r7rW@tiger.cloudamqp.com/mtynjhlt",
+         "queue" : "EmailNotificationRabbitMQQueue",
+         "exchange" : "EmailNotificationRabbitMQExchange"
+    }
+}
