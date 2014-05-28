@@ -1,5 +1,6 @@
 var amqpLib = require('amqplib'),
     fs = require('fs'),
+    cronJob = require( 'cron' ).CronJob,
     express = require('express'),
     Mailgun = require('mailgun-js');
 
@@ -7,8 +8,7 @@ var amqpLib = require('amqplib'),
 var filename = __dirname + "/config.json";
 var config = JSON.parse (fs.readFileSync(filename,'utf8'));
 
-var url = config.rabbitmq.amqpurl; // default to localhost
-var open = amqpLib.connect(url);
+
 
 var app = express();
 console.log("process.env.PORT=" + process.env.PORT)
@@ -30,23 +30,28 @@ app.configure(function () {
 
 app.listen(process.env.PORT || 2455);
 
-/*try {
+try {
     //Cron Job started
     new cronJob( config.cron.schedule, function ()
     {
        console.log( "Starting subscribeamqpemail instance(using schedule)....." + new Date() +" "+config.cron.schedule);
-        setTimeout( function () { StockTweets(); }, 0 );
+        setTimeout( function () { SendEmailNotification(); }, 0 );
     }, null, true, config.cron.timeZone );
    
 } 
 catch(ex) 
 {
     console.log("cron pattern not valid");
-}*/
+}
+
+function SendEmailNotification(){debugger;
+   
+    var url = config.rabbitmq.amqpurl; // default to localhost
+    var open = amqpLib.connect(url);
 
 open.then(function(conn) {
   var ok = conn.createChannel();
-  ok = ok.then(function(ch) {
+  ok = ok.then(function(ch) {debugger;
       console.log("rabbitMQ connected");
     ch.assertQueue(config.rabbitmq.queue+'');
     ch.bindQueue(config.rabbitmq.queue,config.rabbitmq.exchange,'Dummy');
@@ -94,4 +99,6 @@ open.then(function(conn) {
   });
   return ok;
 }).then(null, console.warn);
+
+}
 
