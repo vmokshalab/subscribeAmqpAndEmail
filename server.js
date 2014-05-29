@@ -1,6 +1,5 @@
 var amqpLib = require('amqplib'),
     fs = require('fs'),
-    cronJob = require( 'cron' ).CronJob,
     express = require('express'),
     Mailgun = require('mailgun-js');
 
@@ -29,23 +28,8 @@ app.configure(function () {
 });
 
 app.listen(process.env.PORT || 2455);
+       console.log( "Starting subscribeamqpemail instance...." + new Date() );
 
-/*try {
-    //Cron Job started
-    new cronJob( config.cron.schedule, function ()
-    {
-       console.log( "Starting subscribeamqpemail instance(using schedule)....." + new Date() +" "+config.cron.schedule);
-        setTimeout( function () { SendEmailNotification(); }, 0 );
-    }, null, true, config.cron.timeZone );
-   
-} 
-catch(ex) 
-{
-    console.log("cron pattern not valid");
-}*/
-
-//function SendEmailNotification(){
-   
     var url = config.rabbitmq.amqpurl; // default to localhost
     var open = amqpLib.connect(url);
 
@@ -100,5 +84,4 @@ open.then(function(conn) {
   return ok;
 }).then(null, console.warn);
 
-//}
 
