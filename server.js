@@ -1,6 +1,6 @@
 var amqpLib = require('amqplib'),
     fs = require('fs'),
-    //cronJob = require( 'cron' ).CronJob,
+    cronJob = require( 'cron' ).CronJob,
     express = require('express'),
     Mailgun = require('mailgun-js');
 
